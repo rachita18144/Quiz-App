@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 public class RelativeLayoutFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -19,17 +22,28 @@ public class RelativeLayoutFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        String[] myDataset = {"Cheese", "Pepperoni", "Black Olives", "Cheese", "Pepperoni", "Black Olives", "Cheese", "Pepperoni", "Black Olives"};
-        recyclerView.setAdapter(new RecyclerViewAdapter(myDataset, getActivity()));
+
+        //adding Questions to database and display
+        QuizQuestions quizQuestions = new QuizQuestions(getActivity());
+        ArrayList<Question> questions = quizQuestions.getAllQuestions();
+
+        //Get an arraylist from db and set it to recycler view.
+        recyclerView.setAdapter(new RecyclerViewAdapter(questions, getActivity()));
         return view;
     }
 
-    public void switchContent(int id, Fragment fragment) {
+    /*public void displayData(ArrayList<Question> questions) {
+        for(int i=0; i<questions.size(); i++){
+            Log.d("data", questions.get(i).question);
+        }
+    }*/
+
+    /*public void switchContent(int id, Fragment fragment) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(id, fragment, fragment.toString());
         ft.addToBackStack(null);
         ft.commit();
-    }
+    }*/
 }
 
 

@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    String[] mDataset = new String[100];
+    ArrayList<Question> mDataset = new ArrayList<Question>();
     Context mContext;
 
-    public RecyclerViewAdapter(String[] dataSet, Context mcontext) {
+    public RecyclerViewAdapter(ArrayList<Question> dataSet, Context mcontext) {
         this.mDataset = dataSet;
         this.mContext = mcontext;
     }
@@ -28,7 +30,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemLayoutView);
             mListener = listener;
             cardView = (CardView) itemLayoutView.findViewById(R.id.card_view);
-            txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.textView);
+            txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.question);
             txtViewTitle.setOnClickListener(this);
             itemLayoutView.setOnClickListener(this);
         }
@@ -38,14 +40,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if (v instanceof CardView) {
                 mListener.itemClicked((CardView) v);
             }
+            //TODO: Add on click listener to text view also
         }
 
         public static interface IMyViewHolderClicks {
             public void itemClicked(CardView cardView);
         }
-
     }
-
 
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 MainActivity mainActivity = (MainActivity) mContext;
 
                 // this will open replace current frgament to quiz fragment
-                mainActivity.openQuizFragment(mDataset[Integer.parseInt(cardView.getTag(R.string.list_index).toString())]);
+                mainActivity.openQuizFragment(mDataset.get(Integer.parseInt(cardView.getTag(R.string.list_index).toString())).question);
             }
         });
         return vh;
@@ -64,13 +65,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.txtViewTitle.setText(mDataset[position]);
+        holder.txtViewTitle.setText(mDataset.get(position).question);
         holder.cardView.setTag(R.string.list_index, position);
-
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }
