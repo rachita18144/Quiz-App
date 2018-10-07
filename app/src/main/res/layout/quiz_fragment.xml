@@ -4,8 +4,12 @@
     android:id="@+id/fragment"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/quiz_fragment_text_view"
         android:layout_width="match_parent"
+        android:layout_margin="30dp"
         android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="30sp"
         android:text="abce"/>
 
 </LinearLayout>
