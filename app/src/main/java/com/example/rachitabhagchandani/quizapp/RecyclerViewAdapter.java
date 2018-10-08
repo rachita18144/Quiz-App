@@ -57,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 MainActivity mainActivity = (MainActivity) mContext;
 
                 // this will open replace current frgament to quiz fragment
-                mainActivity.openQuizFragment(mDataset.get(Integer.parseInt(cardView.getTag(R.string.list_index).toString())).question);
+                mainActivity.openQuizFragment(mDataset.get(Integer.parseInt(cardView.getTag(R.string.list_index).toString())).question, mDataset.get(Integer.parseInt(cardView.getTag(R.string.list_index).toString())).id);
             }
         });
         return vh;

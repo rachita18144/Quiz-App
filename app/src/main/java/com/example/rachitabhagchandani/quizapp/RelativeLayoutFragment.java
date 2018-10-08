@@ -16,6 +16,7 @@ public class RelativeLayoutFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    QuizQuestions quizQuestions;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.relative_layout_fragment, container, false);
@@ -24,7 +25,7 @@ public class RelativeLayoutFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //adding Questions to database and display
-        QuizQuestions quizQuestions = new QuizQuestions(getActivity());
+        quizQuestions = new QuizQuestions(getActivity());
         ArrayList<Question> questions = quizQuestions.getAllQuestions();
 
         //Get an arraylist from db and set it to recycler view.
@@ -32,11 +33,12 @@ public class RelativeLayoutFragment extends Fragment {
         return view;
     }
 
-    /*public void displayData(ArrayList<Question> questions) {
-        for(int i=0; i<questions.size(); i++){
-            Log.d("data", questions.get(i).question);
-        }
-    }*/
+    public void putArguments(Bundle args){
+        String answer = args.getString("answer");
+        int id = args.getInt("id");
+        quizQuestions.saveResponseTodb(id, answer);
+        Log.d("answer",answer);
+    }
 
     /*public void switchContent(int id, Fragment fragment) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();

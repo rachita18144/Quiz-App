@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final int VERSION_NUMBER = 2;
     public static final String DATABASE_NAME = "Quiz.db";
     public static final String TABLE_NAME = "Quiz_details";
     public static final String COL_1 = "ID";
@@ -18,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_4 = "SAVED_ANSWER";
 
     public DatabaseHelper(Context context){
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, VERSION_NUMBER);
     }
 
     @Override
@@ -56,9 +57,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 question.setId(cursor.getInt(0));
                 question.setQuestion(cursor.getString(1));
                 question.setAnswer(cursor.getString(2));
+                //question.setSavedAnswer(cursor.getString(3));
                 questions.add(question);
             }while (cursor.moveToNext());
         }
         return questions;
+    }
+
+    public int addDataToDb(int id, String answer){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_4, answer);
+        return db.update(TABLE_NAME, values, COL_1 + " = ?",
+                new String[] { String.valueOf(id) });
     }
 }

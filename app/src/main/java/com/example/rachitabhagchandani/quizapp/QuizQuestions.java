@@ -30,4 +30,8 @@ public class QuizQuestions {
         ArrayList<Question> questions = databaseHelper.getAllQuestions();
         return questions;
     }
+
+    public void saveResponseTodb(int id, String answer){
+        databaseHelper.addDataToDb(id,answer);
+    }
 }

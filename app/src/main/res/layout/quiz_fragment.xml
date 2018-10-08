@@ -39,10 +39,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onSaveButtonClicked"
+            android:id="@+id/save_button"
             android:text="Save Answer"/>
           <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+              android:id="@+id/submit_button"
+              android:onClick="onSubmitButtonClicked"
             android:text="Submit Quiz"/>
     </LinearLayout>
 
