@@ -37,14 +37,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View v) {
-            if (v instanceof CardView) {
-                mListener.itemClicked((CardView) v);
-            }
-            //TODO: Add on click listener to text view also
+                mListener.itemClicked(v, getAdapterPosition());
         }
 
         public static interface IMyViewHolderClicks {
-            public void itemClicked(CardView cardView);
+            public void itemClicked(View view, int position);
         }
     }
 
@@ -53,11 +50,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_view, parent, false);
 
         RecyclerViewAdapter.ViewHolder vh = new ViewHolder(v, new RecyclerViewAdapter.ViewHolder.IMyViewHolderClicks() {
-            public void itemClicked(CardView cardView) {
+            public void itemClicked(View v, int pos) {
                 MainActivity mainActivity = (MainActivity) mContext;
 
                 // this will open replace current frgament to quiz fragment
-                mainActivity.openQuizFragment(mDataset.get(Integer.parseInt(cardView.getTag(R.string.list_index).toString())).question, mDataset.get(Integer.parseInt(cardView.getTag(R.string.list_index).toString())).id);
+                mainActivity.openQuizFragment(mDataset.get(pos).question, mDataset.get(pos).id);
             }
         });
         return vh;

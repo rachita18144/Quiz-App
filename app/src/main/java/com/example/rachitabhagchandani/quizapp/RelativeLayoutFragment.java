@@ -40,12 +40,6 @@ public class RelativeLayoutFragment extends Fragment {
         Log.d("answer",answer);
     }
 
-    /*public void switchContent(int id, Fragment fragment) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(id, fragment, fragment.toString());
-        ft.addToBackStack(null);
-        ft.commit();
-    }*/
 }
 
 
